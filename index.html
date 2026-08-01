@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>Happy Friendship Day, Shalinnnnnnnnnnnnn 💙</title>
+<style>
+  :root{
+    --deep-blue-1: #030712;
+    --deep-blue-2: #071b3a;
+    --deep-blue-3: #0b2a5c;
+    --accent: #4da3ff;
+    --accent-soft: #7fc4ff;
+    --glass-bg: rgba(255,255,255,0.06);
+    --glass-border: rgba(255,255,255,0.14);
+    --text-main: #eaf2ff;
+    --text-dim: #9fb8dd;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{
+    scroll-behavior: smooth;
+  }
+
+  body{
+    background: radial-gradient(ellipse at top, var(--deep-blue-3), var(--deep-blue-1) 65%);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- particles ---------- */
+  #particle-canvas{
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* ---------- opening overlay ---------- */
+  #opening-screen{
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 24px;
+    background:
+      radial-gradient(ellipse at center, rgba(11,42,92,0.9), rgba(3,7,18,0.98) 70%);
+    transition: opacity 0.9s ease, visibility 0.9s ease;
+  }
+
+  #opening-screen.hidden{
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .opening-glow{
+    position:absolute;
+    width: 500px; height:500px;
+    background: radial-gradient(circle, rgba(77,163,255,0.25), transparent 70%);
+    filter: blur(40px);
+    animation: pulseGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow{
+    0%,100%{ transform: scale(1); opacity: 0.7; }
+    50%{ transform: scale(1.15); opacity: 1; }
+  }
+
+  #opening-screen h1{
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 1s ease forwards 0.3s;
+    z-index: 2;
+  }
+
+  #opening-screen p{
+    color: var(--text-dim);
+    font-size: clamp(0.95rem, 2.6vw, 1.15rem);
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 1s ease forwards 0.6s;
+    z-index: 2;
+  }
+
+  @keyframes fadeUp{
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  .open-btn{
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    padding: 16px 46px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--deep-blue-1);
+    background: linear-gradient(135deg, var(--accent-soft), var(--accent));
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    box-shadow: 0 8px 30px rgba(77,163,255,0.35);
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+    animation: fadeUp 1s ease forwards 0.9s;
+    transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .open-btn:hover{
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 14px 40px rgba(77,163,255,0.5);
+  }
+
+  .open-btn:active{
+    transform: translateY(0) scale(0.98);
+  }
+
+  .ripple{
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.55);
+    transform: scale(0);
+    animation: rippleEffect 0.65s ease-out;
+    pointer-events: none;
+  }
+
+  @keyframes rippleEffect{
+    to{ transform: scale(3.2); opacity: 0; }
+  }
+
+  /* ---------- main content ---------- */
+  #main-content{
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  #main-content.visible{ opacity: 1; }
+
+  section{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 90px 22px;
+    text-align: center;
+  }
+
+  /* ---------- hero ---------- */
+  #hero{
+    background-image:
+      linear-gradient(180deg, rgba(3,7,18,0.35) 0%, rgba(3,7,18,0.55) 55%, rgba(3,7,18,0.95) 100%),
+      linear-gradient(160deg, rgba(6,20,50,0.85), rgba(3,7,18,0.9)),
+      url('COLLAGE_IMAGE_PLACEHOLDER');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    justify-content: flex-end;
+    padding-bottom: 110px;
+  }
+
+  #hero .hero-inner{
+    animation: fadeUp 1.2s ease forwards;
+  }
+
+  #hero h2{
+    font-size: clamp(1.8rem, 6vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  }
+
+  #hero p{
+    color: var(--text-dim);
+    font-size: clamp(0.95rem, 3vw, 1.2rem);
+  }
+
+  .scroll-hint{
+    position:absolute;
+    bottom: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    gap: 6px;
+    animation: bobDown 1.8s ease-in-out infinite;
+  }
+
+  .scroll-hint span{
+    width: 20px; height: 32px;
+    border: 2px solid rgba(234,242,255,0.5);
+    border-radius: 20px;
+    position: relative;
+  }
+
+  .scroll-hint span::before{
+    content:"";
+    position:absolute;
+    top: 6px; left:50%;
+    width:4px; height:4px;
+    background: var(--accent-soft);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    animation: dotMove 1.8s ease-in-out infinite;
+  }
+
+  @keyframes dotMove{
+    0%{ top:6px; opacity:1; }
+    70%{ top:18px; opacity: 0; }
+    100%{ top:18px; opacity:0; }
+  }
+
+  @keyframes bobDown{
+    0%,100%{ transform: translate(-50%, 0); }
+    50%{ transform: translate(-50%, 8px); }
+  }
+
+  /* ---------- greeting ---------- */
+  #greeting h2{
+    font-size: clamp(2rem, 7vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #ffffff, var(--accent-soft));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .reveal{
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(.2,.8,.2,1), transform 0.9s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .reveal.in-view{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- cards section ---------- */
+  #cards h3, #fun h3, #note h3{
+    font-size: clamp(1.5rem, 4.5vw, 2.2rem);
+    font-weight: 700;
+    margin-bottom: 46px;
+    letter-spacing: -0.02em;
+  }
+
+  .card-grid{
+    display:grid;
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
+    gap: 26px;
+    width: 100%;
+    max-width: 1000px;
+  }
+
+  @media (max-width: 800px){
+    .card-grid{ grid-template-columns: 1fr; }
+  }
+
+  .glass-card{
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 22px;
+    padding: 40px 26px;
+    transition: transform 0.5s cubic-bezier(.2,.8,.2,1), box-shadow 0.5s ease, border-color 0.5s ease;
+    cursor: default;
+  }
+
+  .glass-card:hover{
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(77,163,255,0.18);
+    border-color: rgba(127,196,255,0.45);
+  }
+
+  .glass-card .icon{
+    font-size: 2.2rem;
+    margin-bottom: 18px;
+    display:inline-block;
+    animation: floatIcon 4s ease-in-out infinite;
+  }
+
+  @keyframes floatIcon{
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(-8px); }
+  }
+
+  .glass-card p{
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text-main);
+    line-height: 1.5;
+  }
+
+  /* ---------- fun section ---------- */
+  #fun{
+    background: linear-gradient(180deg, transparent, rgba(11,42,92,0.25), transparent);
+  }
+
+  .fun-grid{
+    display:grid;
+    grid-template-columns: repeat(3, minmax(200px,1fr));
+    gap: 22px;
+    width:100%;
+    max-width: 950px;
+  }
+
+  @media (max-width: 800px){
+    .fun-grid{ grid-template-columns: 1fr; }
+  }
+
+  .fun-card{
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 20px;
+    padding: 34px 20px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .fun-card:hover{
+    transform: translateY(-8px) rotate(-0.5deg);
+    box-shadow: 0 16px 40px rgba(77,163,255,0.2);
+  }
+
+  .fun-card .tag{
+    display:block;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  /* ---------- note ---------- */
+  #note .note-card{
+    max-width: 640px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 24px;
+    padding: 44px 30px;
+    font-size: clamp(1rem, 2.6vw, 1.25rem);
+    line-height: 1.7;
+    color: var(--text-main);
+  }
+
+  /* ---------- ending ---------- */
+  #ending{
+    background: radial-gradient(ellipse at bottom, rgba(11,42,92,0.6), var(--deep-blue-1) 70%);
+  }
+
+  #ending h2{
+    font-size: clamp(1.8rem, 6vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ffffff, var(--accent-soft));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  #ending .signature{
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+  /* ==========================================================
+   TOM • MONKEY • JERRY HERO ANIMATION
+========================================================== */
+
+.friends-animation{
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+
+    gap:45px;
+
+    margin-bottom:40px;
+
+    position:relative;
+
+    z-index:5;
+
+}
+
+.character{
+
+    transform-style:preserve-3d;
+will-change:transform;
+
+    user-select:none;
+
+    pointer-events:none;
+
+    transition:
+        transform .6s ease,
+        filter .6s ease,
+        opacity .6s ease;
+
+    filter:
+        drop-shadow(0 10px 20px rgba(0,0,0,.35))
+        drop-shadow(0 0 20px rgba(77,163,255,.18));
+
+}
+
+.tom{
+
+    width:180px;
+
+    animation:
+        floatTom 4s ease-in-out infinite;
+
+}
+
+.monkey{
+
+    width:150px;
+
+    margin-bottom:18px;
+
+    animation:
+        monkeySwing 3 s ease-in-out infinite;
+
+}
+
+.jerry{
+
+    width:150px;
+
+    animation:
+        floatJerry 4s ease-in-out infinite;
+
+}
+
+
+/* ---------- Floating ---------- */
+
+@keyframes floatTom{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-12px);
+    }
+
+}
+
+@keyframes floatJerry{
+
+    0%,100%{
+        transform:translateY(-8px);
+    }
+
+    50%{
+        transform:translateY(5px);
+    }
+
+}
+
+/* ---------- Monkey Swing ---------- */
+
+@keyframes monkeySwing{
+
+    0%{
+
+        transform:
+        rotate(-12deg);
+
+    }
+
+    25%{
+
+        transform:
+        rotate(10deg);
+
+    }
+
+    50%{
+
+        transform:
+        rotate(-8deg);
+
+    }
+
+    75%{
+
+        transform:
+        rotate(10deg);
+
+    }
+
+    100%{
+
+        transform:
+        rotate(-12deg);
+
+    }
+
+}
+
+/* ---------- Glow ---------- */
+
+.friends-animation::after{
+    perspective:1000px;
+
+    content:"";
+
+    position:absolute;
+
+    bottom:-8px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:220px;
+
+    height:25px;
+
+    background:
+
+    rgba(77,163,255,.15);
+
+    filter:blur(18px);
+
+    border-radius:50%;
+
+    z-index:-1;
+
+}
+
+/* ---------- Animation Classes ---------- */
+
+.bump{
+
+    transform:translateY(-18px) scale(1.08);
+
+}
+
+.shake{
+
+    animation:shake .5s;
+
+}
+
+@keyframes shake{
+
+0%{transform:rotate(0deg);}
+25%{transform:rotate(-6deg);}
+50%{transform:rotate(6deg);}
+75%{transform:rotate(-5deg);}
+100%{transform:rotate(0deg);}
+
+}
+
+  footer{
+    text-align:center;
+    padding: 26px;
+    font-size: 0.75rem;
+    color: rgba(159,184,221,0.5);
+    position: relative;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="particle-canvas"></canvas>
+
+<!-- Opening Screen -->
+<div id="opening-screen">
+  <div class="opening-glow"></div>
+  <h1>Happy Friendship Day, Shalinnnnnnnnn 💙</h1>
+  <p>I made this little surprise for you :)</p>
+  <button class="open-btn" id="openBtn">Open</button>
+</div>
+
+<!-- Main Content -->
+<div id="main-content">
+
+  <section id="hero">
+    <div class="hero-inner">
+
+    <!-- Tom • Monkey • Jerry -->
+    <div class="friends-animation">
+
+        <img
+            src="tom.png"
+            id="leftCharacter"
+            class="character tom"
+            alt="Tom">
+
+        <img
+            src="monkey.png"
+            id="centerCharacter"
+            class="character monkey"
+            alt="Monkey">
+
+        <img
+            src="jerry.png"
+            id="rightCharacter"
+            class="character jerry"
+            alt="Jerry">
+
+    </div>
+      <h2><h2>Us, basically :)</h2></h2>
+      <p>A collage of chaos, laughter, and everything in between.</p>
+    </div>
+    <div class="scroll-hint"><span></span>scroll</div>
+  </section>
+
+  <section id="greeting">
+    <h2 class="reveal">Hey Shalinnnnnnnnnnnnn 👋</h2>
+  </section>
+
+  <section id="cards">
+    <h3 class="reveal">A few facts about us</h3>
+    <div class="card-grid">
+      <div class="glass-card reveal">
+        <span class="icon">😄</span>
+        <p>You make me smile just by your presence....</p>
+      </div>
+      <div class="glass-card reveal">
+        <span class="icon">😂</span>
+        <p>You also make me angry,but never wanted to leave youuu😂.</p>
+      </div>
+      <div class="glass-card reveal">
+        <span class="icon">🙌</span>
+        <p>Thanks for always being there.As  i say your my Everything..</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="fun">
+    <h3 class="reveal">Certified nonsense</h3>
+    <div class="fun-grid">
+      <div class="fun-card reveal">
+        <span class="tag">Nickname</span>
+        You still call me "Poovesh" even i hurt you or if i make you cry ..Thankss😂
+      </div>
+      <div class="fun-card reveal">
+        <span class="tag">Duo</span>
+        Even we fight a lot we both still stay for each others like a Tom 🤝 Jerry
+      </div>
+      <div class="fun-card reveal">
+        <span class="tag">Mission</span>
+        We just Keep annoying each other,but we're happy and i always want to see your smile..
+      </div>
+    </div>
+  </section>
+
+  <section id="note">
+    <h3 class="reveal">One small thing</h3>
+    <div class="note-card reveal">
+      I'm sorry if I was rude recently. I just wanted to make you smile today.
+    </div>
+  </section>
+
+  <section id="ending">
+    <h2 class="reveal">Keep smiling. Happy Friendship Day Shalinnnnnnnnnnnnn 💙</h2>
+    <p class="signature reveal">— From your Koranguuuuu Poovesh</p>
+  </section>
+
+  <footer>Made with a little chaos, for Shalinnnnnnnnnnnnn.</footer>
+
+</div>
+
+<script>
+  // ---------- Opening screen ----------
+  const openBtn = document.getElementById('openBtn');
+  const openingScreen = document.getElementById('opening-screen');
+  const mainContent = document.getElementById('main-content');
+
+  openBtn.addEventListener('click', function(e){
+    // ripple effect
+    const rect = openBtn.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    const size = Math.max(rect.width, rect.height);
+    ripple.className = 'ripple';
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+    openBtn.appendChild(ripple);
+    setTimeout(()=> ripple.remove(), 700);
+
+    setTimeout(()=>{
+      openingScreen.classList.add('hidden');
+      mainContent.classList.add('visible');
+      document.body.style.overflow = 'auto';
+    }, 380);
+  });
+
+  document.body.style.overflow = 'hidden';
+
+  // ---------- Scroll reveal ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  // ---------- Floating particles ----------
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let width, height;
+
+  function resize(){
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function createParticles(){
+    const count = Math.floor((width * height) / 22000);
+    particles = [];
+    for(let i=0; i<count; i++){
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 2 + 0.6,
+        speedY: Math.random() * 0.4 + 0.1,
+        speedX: (Math.random() - 0.5) * 0.3,
+        opacity: Math.random() * 0.5 + 0.15,
+        drift: Math.random() * Math.PI * 2
+      });
+    }
+  }
+  createParticles();
+  window.addEventListener('resize', createParticles);
+
+  function animateParticles(){
+    ctx.clearRect(0,0,width,height);
+    particles.forEach(p=>{
+      p.y -= p.speedY;
+      p.drift += 0.01;
+      p.x += Math.sin(p.drift) * 0.3 + p.speedX * 0.2;
+
+      if(p.y < -10){
+        p.y = height + 10;
+        p.x = Math.random() * width;
+      }
+      if(p.x < -10) p.x = width + 10;
+      if(p.x > width + 10) p.x = -10;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(127, 196, 255, ${p.opacity})`;
+      ctx.shadowColor = 'rgba(77,163,255,0.8)';
+      ctx.shadowBlur = 6;
+      ctx.fill();
+    });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+
+</script>
+
+</body>
+</html>
